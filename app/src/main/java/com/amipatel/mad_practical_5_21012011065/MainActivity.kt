@@ -35,7 +35,10 @@ class MainActivity : AppCompatActivity() {
         cameraButton.setOnClickListener {
             camera()
         }
-
+        val alarmButton: Button = findViewById(R.id.alarm_btn)
+        alarmButton.setOnClickListener {
+            alarm()
+        }
     }
 
     fun openBrowser(url: String) {
