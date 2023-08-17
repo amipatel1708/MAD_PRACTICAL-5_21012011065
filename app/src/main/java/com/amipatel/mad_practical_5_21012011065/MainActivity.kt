@@ -4,6 +4,8 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.AlarmClock
+import android.provider.MediaStore
 import android.widget.Button
 import android.widget.EditText
 
@@ -12,33 +14,50 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val browseButton = findViewById<Button>(R.id.browse_btn)
-        val txtBrowse:EditText=findViewById(R.id.url)
+        val editText: EditText = findViewById(R.id.editTextUrl)
         browseButton.setOnClickListener {
-            openBrowser(txtBrowse.text.toString())
+            openBrowser(editText.text.toString())
         }
         val callButton = findViewById<Button>(R.id.call_btn)
-        val txtCall:EditText=findViewById(R.id.editTextPhone)
-        callButton.setOnClickListener{
-            call(txtCall.text.toString())
+        val editPhone: EditText = findViewById(R.id.editTextPhone)
+        callButton.setOnClickListener {
+            call(editPhone.text.toString())
         }
+        val callLogButton: Button = findViewById(R.id.callLog_btn)
+        callLogButton.setOnClickListener {
+            callLog()
+        }
+        val galleryButton: Button = findViewById(R.id.gallery_btn)
+        galleryButton.setOnClickListener {
+            gallery()
+        }
+        val cameraButton: Button = findViewById(R.id.camera_btn)
+        cameraButton.setOnClickListener {
+            camera()
+        }
+
     }
 
-    fun openBrowser(url : String){
+    fun openBrowser(url: String) {
         Intent(Intent.ACTION_VIEW, Uri.parse(url)).also { startActivity(it) }
     }
-    fun call(number : String){
+
+    fun call(number: String) {
         Intent(Intent.ACTION_DIAL).setData(Uri.parse("tel:$number")).also { startActivity(it) }
     }
-    fun callLog(){
 
+    fun callLog() {
+        Intent(Intent.ACTION_VIEW).setType("CallLog.Calls.CONTENT_TYPE").also { startActivity(it) }
     }
-    fun gallery(){
-
+    fun gallery() {
+        Intent(Intent.ACTION_VIEW).setType("image/*").also { startActivity(it) }
     }
-    fun camera(){
 
+    fun camera() {
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { startActivity(it) }
     }
-    fun alarm(){
 
+    fun alarm() {
+        Intent(AlarmClock.ACTION_SHOW_ALARMS).also{startActivity(it)}
     }
 }
