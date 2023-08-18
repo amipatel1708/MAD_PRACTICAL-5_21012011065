@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun callLog() {
-        Intent(Intent.ACTION_VIEW).setType("CallLog.Calls.CONTENT_TYPE").also { startActivity(it) }
+        Intent(Intent.ACTION_VIEW,  Uri.parse("content://call_log/calls")).also{ startActivity(it) }
     }
     fun gallery() {
         Intent(Intent.ACTION_VIEW).setType("image/*").also { startActivity(it) }
@@ -61,6 +61,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun alarm() {
-        Intent(AlarmClock.ACTION_SHOW_ALARMS).also{startActivity(it)}
+        Intent(AlarmClock.ACTION_SHOW_ALARMS).also {startActivity(it)}
     }
 }
